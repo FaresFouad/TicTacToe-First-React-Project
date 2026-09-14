@@ -4,42 +4,50 @@ import CheckWin from '../Func/logic';
 import { Link } from 'react-router-dom';
 function Board() {
 
-    const [turn, setTurn] = useState('X');
-    const [message, setMessage] = useState("Player X's Turn");
-    const [boardState, setBoardState] = useState([
+
+    type SquareData = {
+        move: "X" | "O" | " ";
+        isPressed: boolean;
+    };
+
+    type PlayerMove = "X" | "O";
+
+    const [turn, setTurn] = useState<PlayerMove>("X");
+    const [message, setMessage] = useState<string>("Player X's Turn");
+    const [boardState, setBoardState] = useState<SquareData[][]>([
         [{move: " ", isPressed: false}, {move: " ", isPressed: false}, {move: " ", isPressed: false}],
         [{move: " ", isPressed: false}, {move: " ", isPressed: false}, {move: " ", isPressed: false}],
         [{move: " ", isPressed: false}, {move: " ", isPressed: false}, {move: " ", isPressed: false}]
     ]);
-    const [winner, setWinner] = useState(' ');
+    const [winner, setWinner] = useState<"X" | "O" | "D" | " ">(" ");
 
-    function handleClick(turn: string, row: number, col: number) {
-        if (boardState[row][col].isPressed === false && winner === ' ') {
+    function handleClick(turn: PlayerMove, row: number, col: number) {
+        if (boardState[row][col].isPressed === false && winner === " ") {
             const newBoardState = [...boardState];
             newBoardState[row] = [...newBoardState[row]];
             newBoardState[row][col] = {move: turn, isPressed: true};
             setBoardState(newBoardState);
             const winner = CheckWin(newBoardState.map(row => row.map(square => square.move)));
-            if (winner === 'X') {
+            if (winner === "X") {
                 setMessage("Player X Wins!");
-                setWinner('X');
-            } else if (winner === 'O') {
+                setWinner("X");
+            } else if (winner === "O") {
                 setMessage("Player O Wins!");
-                setWinner('O');
-            } else if (winner === 'D') {
+                setWinner("O");
+            } else if (winner === "D") {
                 setMessage("It's a Draw!");
-                setWinner('D');
+                setWinner("D");
             } else {
-                if (turn === 'X') {
-                    setTurn('O');
+                if (turn === "X") {
+                    setTurn("O");
                     setMessage("Player O's Turn");
                 } else {
-                    setTurn('X');
+                    setTurn("X");
                     setMessage("Player X's Turn");
                 }
             }
         }
-        else if (winner !== ' ') {
+        else if (winner !== " ") {
             setMessage(`Game Over! Please Click Reset to start a new game.`);
         }
         else{
@@ -53,9 +61,9 @@ function Board() {
             [{move: " ", isPressed: false}, {move: " ", isPressed: false}, {move: " ", isPressed: false}],
             [{move: " ", isPressed: false}, {move: " ", isPressed: false}, {move: " ", isPressed: false}]
         ]);
-        setTurn('X');
+        setTurn("X");
         setMessage("Player X's Turn");
-        setWinner(' ');
+        setWinner(" ");
     }
     return(
    

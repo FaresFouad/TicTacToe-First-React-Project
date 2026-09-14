@@ -1,9 +1,9 @@
 interface SquareProps {
-  value: string;
-  turn: string;
+  value: "X" | "O" | " ";
+  turn: PlayerMove;
   row: number;
   col: number;
-  handleClick: (turn: string, row: number, col: number) => void;
+  handleClick: (turn: PlayerMove, row: number, col: number) => void;
 }
 
 
