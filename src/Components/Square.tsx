@@ -1,5 +1,8 @@
+import type { PlayerMove }from "./Board";
+
+
 interface SquareProps {
-  value: "X" | "O" | " ";
+  value: PlayerMove | " ";
   turn: PlayerMove;
   row: number;
   col: number;

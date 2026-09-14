@@ -2,15 +2,19 @@ import Square from './Square';
 import { useState } from 'react';
 import CheckWin from '../Func/logic';
 import { Link } from 'react-router-dom';
+
+
+export type PlayerMove = "X" | "O";
+
+
+
 function Board() {
 
 
     type SquareData = {
-        move: "X" | "O" | " ";
+        move: PlayerMove | " ";
         isPressed: boolean;
     };
-
-    type PlayerMove = "X" | "O";
 
     const [turn, setTurn] = useState<PlayerMove>("X");
     const [message, setMessage] = useState<string>("Player X's Turn");
@@ -19,7 +23,7 @@ function Board() {
         [{move: " ", isPressed: false}, {move: " ", isPressed: false}, {move: " ", isPressed: false}],
         [{move: " ", isPressed: false}, {move: " ", isPressed: false}, {move: " ", isPressed: false}]
     ]);
-    const [winner, setWinner] = useState<"X" | "O" | "D" | " ">(" ");
+    const [winner, setWinner] = useState<PlayerMove| "D" | " ">(" ");
 
     function handleClick(turn: PlayerMove, row: number, col: number) {
         if (boardState[row][col].isPressed === false && winner === " ") {
